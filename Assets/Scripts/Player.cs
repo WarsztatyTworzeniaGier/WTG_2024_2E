@@ -1,106 +1,49 @@
-﻿using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private string playerName = "Mariusz pierwszy";
+    public Action onDamaged, onDeath;
 
+    [Header("Data")]
     [SerializeField]
-    private float moveSpeed = 1.4f;
+    private int startHealth = 3;
 
+    [Header("Components")]
     [SerializeField]
-    private int health = 3;
-
-    [SerializeField]
-    private float jumpPower = 10f;
+    private PlayerMomement movement;
 
     [SerializeField]
-    private int maxJumps = 2;
+    private HealthUI healthUI;
 
     [SerializeField]
-    private float raycastDistance = 0.6f;
+    private Damagable damagable;
 
+    [Header("Stats")]
     [SerializeField]
-    private LayerMask groundMask;
+    private int currentHealth;
 
-    private Rigidbody2D rb;
-
-    private Vector3 moveInput = Vector3.zero;
-
-    private bool isOnGround = false;
-
-    private int jumpCount = 0;
-
-    private bool lastFrameWasGrounded;
-
-    public bool IsGrounded
-    {
-        get => isOnGround;
-
-        private set
-        {
-
-        }
-    }
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
+    public int CurrentHealth => currentHealth; 
 
     private void Start()
     {
-
+        currentHealth = startHealth;
+        healthUI.SetHearts(startHealth);
+        damagable.OnHit += OnDamaged;
     }
 
-    void Update()
+    private void OnDamaged()
     {
-        moveInput = GetInput();
-        Move();
+        healthUI.RemoveHearth();
+        currentHealth--;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        onDamaged?.Invoke();
+
+        if (currentHealth <= 0)
         {
-            Jump();
+            onDeath?.Invoke();
         }
-
-        isOnGround = CheckIfIsOnGround();
-    }
-
-    private void Move()
-    {
-        transform.position += moveInput * Time.deltaTime * moveSpeed;
-        transform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * moveSpeed * Time.deltaTime;
-    }
-
-    private Vector3 GetInput()
-    {
-        var inputX = Input.GetAxis("Horizontal");
-        var inputY = Input.GetAxis("Vertical");
-
-        return new Vector3(inputX, inputY);
-    }
-
-    private bool CheckIfIsOnGround()
-    {
-        var ground = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundMask); 
-
-        if(lastFrameWasGrounded == false && ground == true)
-        {
-            jumpCount = 0;
-        }
-
-
-        lastFrameWasGrounded = ground;
-        return ground;
-    }
-
-    private void Jump()
-    {
-        if (jumpCount < maxJumps || isOnGround)
-        {
-            rb.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
-        }
-        if(jumpCount <= maxJumps)
-            jumpCount++;
     }
 }
