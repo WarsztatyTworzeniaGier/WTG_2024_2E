@@ -17,6 +17,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = pause ? 0f : 1.0f;
         pauseScreen.Toggle(pause);
     }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.P))
