@@ -8,13 +8,26 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Player player;
 
+    [SerializeField]
+    private float respawnTime = 1f;
+
     private void Start()
     {
-        player.onDeath += RestartGame;
+        player.onDeath += StartRestartLevel;
     }
 
-    public void RestartGame()
+    public void StartRestartLevel()
     {
-        SceneManager.LoadSceneAsync("Main");
+        //Invoke(nameof(RestartLevel), respawnTime);
+        StartCoroutine(RestartLevel());
+    }
+
+    private IEnumerator RestartLevel()
+    {
+        player.KillPlayer();
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(respawnTime);
+        Time.timeScale = 1f;
+        player.RespawnPlayer(respawnTime);
     }
 }

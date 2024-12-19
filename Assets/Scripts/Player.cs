@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ public class Player : MonoBehaviour
     private PlayerMomement movement;
 
     [SerializeField]
+    private Animator animator;
+
+    [SerializeField]
     private HealthUI healthUI;
 
     [SerializeField]
@@ -25,7 +29,28 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int currentHealth;
 
-    public int CurrentHealth => currentHealth; 
+    public int CurrentHealth => currentHealth;
+
+    private Vector3 spawnPosition;
+
+    public void RespawnPlayer(float duration)
+    {
+        animator.SetBool("IsDead", false);
+        transform.DOMove(spawnPosition, duration).SetUpdate(true);
+        currentHealth = startHealth;
+        healthUI.SetHearts(currentHealth);
+    }
+
+    public void KillPlayer()
+    {
+        animator.SetBool("IsDead", true);
+
+    }
+
+    private void Awake()
+    {
+        spawnPosition = transform.position;
+    }
 
     private void Start()
     {
@@ -36,7 +61,12 @@ public class Player : MonoBehaviour
 
     private void OnDamaged()
     {
-        healthUI.RemoveHearth();
+        if (currentHealth <=0)
+        {
+            return;
+        }
+
+        healthUI.RemoveHeart();
         currentHealth--;
 
         onDamaged?.Invoke();

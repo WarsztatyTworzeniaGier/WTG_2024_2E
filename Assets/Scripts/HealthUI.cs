@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,9 @@ public class HealthUI : MonoBehaviour
 
     [SerializeField]
     private Transform heartsContainter;
+
+    [SerializeField]
+    private Ease sliderEase;
 
     private List<Image> hearts = new();
 
@@ -36,9 +40,10 @@ public class HealthUI : MonoBehaviour
     public void SetHealth(float health)
     {
         healthSlider.value = health;
+        healthSlider.maxValue = health;
     }
 
-    public void RemoveHearth()
+    public void RemoveHeart()
     {
         if(hearts.Count == 0) 
         { 
@@ -48,6 +53,6 @@ public class HealthUI : MonoBehaviour
         Destroy(hearts[0].gameObject);
         hearts.RemoveAt(0);
 
-        healthSlider.value = hearts.Count;
+        healthSlider.DOValue(hearts.Count, 0.3f).SetUpdate(true).SetEase(sliderEase);
     }
 }
