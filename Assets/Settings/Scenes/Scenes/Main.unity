@@ -1142,11 +1142,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2730643901830643837, guid: cf0a1c13e74560f4e868675d4a51158b, type: 3}
   m_PrefabInstance: {fileID: 1788359721596403133}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &752371466 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3051877305916439362, guid: cf0a1c13e74560f4e868675d4a51158b, type: 3}
-  m_PrefabInstance: {fileID: 1788359721596403133}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &816268146
 GameObject:
   m_ObjectHideFlags: 0
@@ -2306,6 +2301,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2673435668116142877, guid: cf0a1c13e74560f4e868675d4a51158b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -6447722072507503168, guid: 10f3cacccb0c4c547be76836eba20664, type: 3}
+    - target: {fileID: 2673435668116142877, guid: cf0a1c13e74560f4e868675d4a51158b, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
@@ -2361,10 +2360,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7590315861106981234, guid: cf0a1c13e74560f4e868675d4a51158b, type: 3}
-      propertyPath: animator
+    - target: {fileID: 6765659804326889522, guid: cf0a1c13e74560f4e868675d4a51158b, type: 3}
+      propertyPath: data
       value: 
-      objectReference: {fileID: 752371466}
+      objectReference: {fileID: 11400000, guid: e982e250ed2579549bd509d77d644f6c, type: 2}
+    - target: {fileID: 7590315861106981234, guid: cf0a1c13e74560f4e868675d4a51158b, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: e982e250ed2579549bd509d77d644f6c, type: 2}
     - target: {fileID: 7590315861106981234, guid: cf0a1c13e74560f4e868675d4a51158b, type: 3}
       propertyPath: healthUI
       value: 

@@ -8,9 +8,8 @@ public class Player : MonoBehaviour
 {
     public Action onDamaged, onDeath;
 
-    [Header("Data")]
     [SerializeField]
-    private int startHealth = 3;
+    private PlayerData data;
 
     [Header("Components")]
     [SerializeField]
@@ -37,7 +36,7 @@ public class Player : MonoBehaviour
     {
         animator.SetBool("IsDead", false);
         transform.DOMove(spawnPosition, duration).SetUpdate(true);
-        currentHealth = startHealth;
+        currentHealth = data.StartHealth;
         healthUI.SetHearts(currentHealth);
     }
 
@@ -54,8 +53,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        currentHealth = startHealth;
-        healthUI.SetHearts(startHealth);
+        currentHealth = data.StartHealth;
+        healthUI.SetHearts(data.StartHealth);
         damagable.OnHit += OnDamaged;
     }
 

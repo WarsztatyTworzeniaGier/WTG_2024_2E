@@ -161,9 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073222ca707afd14aa3c52beb5657959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 3
+  data: {fileID: 11400000, guid: c40a51b488b7d4e42aadc5fff5747112, type: 2}
   movement: {fileID: 6765659804326889522}
-  animator: {fileID: 0}
+  animator: {fileID: 3051877305916439362}
   healthUI: {fileID: 0}
   damagable: {fileID: 8526051794567897992}
   currentHealth: 0
@@ -179,14 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b31cf7d167e114dba99990efd700ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Mariusz
-  moveSpeed: 5
-  jumpPower: 10
-  maxJumps: 2
-  raycastDistance: 0.6
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 1
+  data: {fileID: 11400000, guid: c40a51b488b7d4e42aadc5fff5747112, type: 2}
+  animator: {fileID: 3051877305916439362}
+  spriteRenderer: {fileID: 2673435668116142877}
 --- !u!114 &8526051794567897992
 MonoBehaviour:
   m_ObjectHideFlags: 0

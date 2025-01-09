@@ -3,22 +3,13 @@
 public class PlayerMomement : MonoBehaviour
 {
     [SerializeField]
-    private string playerName = "Mariusz pierwszy";
+    private PlayerData data;
 
     [SerializeField]
-    private float moveSpeed = 1.4f;
+    private Animator animator;
 
     [SerializeField]
-    private float jumpPower = 10f;
-
-    [SerializeField]
-    private int maxJumps = 2;
-
-    [SerializeField]
-    private float raycastDistance = 0.6f;
-
-    [SerializeField]
-    private LayerMask groundMask;
+    private SpriteRenderer spriteRenderer;
 
     private Rigidbody2D rb;
 
@@ -46,12 +37,14 @@ public class PlayerMomement : MonoBehaviour
         }
 
         isOnGround = CheckIfIsOnGround();
+
+        animator.SetBool("IsGrounded", isOnGround);
     }
 
     private void Move()
     {
-        transform.position += moveInput * Time.deltaTime * moveSpeed;
-        transform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * moveSpeed * Time.deltaTime;
+        transform.position += moveInput * Time.deltaTime * data.MoveSpeed;
+        transform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * data.MoveSpeed * Time.deltaTime;
     }
 
     private Vector3 GetInput()
@@ -59,12 +52,20 @@ public class PlayerMomement : MonoBehaviour
         var inputX = Input.GetAxis("Horizontal");
         var inputY = Input.GetAxis("Vertical");
 
+        animator.SetBool("IsRunning", Mathf.Abs(inputX) > 0.05f);
+
+        if(inputX < 0f)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else spriteRenderer.flipX = false;
+
         return new Vector3(inputX, inputY);
     }
 
     private bool CheckIfIsOnGround()
     {
-        var ground = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundMask); 
+        var ground = Physics2D.Raycast(transform.position, Vector2.down, data.RaycastDistance, data.GroundMask); 
 
         if(lastFrameWasGrounded == false && ground == true)
         {
@@ -78,11 +79,11 @@ public class PlayerMomement : MonoBehaviour
 
     private void Jump()
     {
-        if (jumpCount < maxJumps || isOnGround)
+        if (jumpCount < data.MaxJumps || isOnGround)
         {
-            rb.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
+            rb.AddForce(Vector3.up * data.JumpPower, ForceMode2D.Impulse);
         }
-        if(jumpCount <= maxJumps)
+        if(jumpCount <= data.MaxJumps)
             jumpCount++;
     }
 }
