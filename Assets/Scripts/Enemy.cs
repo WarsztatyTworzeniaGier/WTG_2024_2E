@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
     private bool isAlive = true;
 
-    private string enemyName = "Goliat";
+    private string enemyName = "Dawid";
 
 
     // Start is called before the first frame update
@@ -21,25 +21,17 @@ public class Enemy : MonoBehaviour
         if (isAlive) //jeśli warunek to prawda
         {
             //kod tutaj sie wykona    
-        }
-        else if(health > 0)
-        {
             Debug.Log("cos");
+        }
+        else if (health > 0)
+        {
+
         }
         else
         {
-            
+
         }
     }
     
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void Attack()
-    {
-
-    }
+   
 }
