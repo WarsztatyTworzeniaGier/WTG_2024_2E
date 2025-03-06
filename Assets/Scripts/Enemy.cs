@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
     private bool isAlive = true;
 
     private string enemyName = "Dawid";
+    private bool isMovine = false;
+
 
 
     // Start is called before the first frame update
@@ -29,7 +31,8 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-
+            
+            Debug.Log("cos");
         }
     }
     
