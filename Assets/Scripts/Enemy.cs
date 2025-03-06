@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
 
     private bool isAlive = true;
 
+    private bool isMovine = false;
+
     private string enemyName = "Goliat";
 
 
@@ -24,11 +26,11 @@ public class Enemy : MonoBehaviour
         }
         else if(health > 0)
         {
-            Debug.Log("cos");
         }
         else
         {
             
+            Debug.Log("cos");
         }
     }
     
